@@ -1,0 +1,142 @@
+{% load static %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<style>
+#Upload{
+  text-align: center;
+  font-size:16px;
+  font-family: sans-serif;
+}
+.avatar{
+    position:absolute;
+    width: 95px;
+		height: 95px;
+		margin: 0 auto;
+		left: 0;
+		right: 0;
+		top: -50px;
+		border-radius: 50%;
+		background:#9A616D;
+		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+    }
+    .avatar .text {
+        bottom:50px;
+        position:relative;
+        background: rgb(0, 0, 0);/* Fallback color */
+        background: rgba(0, 0, 0,0.3 );/* Black background with opacity */
+        color: #ffffff;
+        height:50px;
+        width: 100px;
+        border-radius: 0px 0px 50px 50px;
+      }
+    .error,.error1{
+       color: #D8000C;
+    }
+    body{
+      background-color:#9A616D;;
+    }
+ </style>
+<script>
+function Imageupload(){
+  console.log("image")
+  document.getElementById("imguploadfile").click();
+}
+
+  function myFunction() {
+    console.log("Hello phone")
+  var element = document.getElementById("error1name");
+ 
+  element.innerHTML=""
+    var emailVal=document.getElementById("emailid");
+    // var phoennoval=document.getElementById("numberid");
+    fetch("/Register", {
+      body:JSON.stringify({"emailid":emailVal.value}),
+      method:"POST",
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        if(data.error1){
+            document.getElementById('error1name').innerHTML=data.error1; 
+            document.getElementById('emailid').focus(); 
+        }
+        // if(data.error2){
+        //   document.getElementById('error2name').innerHTML=data.error2; 
+        //   document.getElementById('numberid').focus(); 
+        // }
+    });
+}
+
+function password(){
+  if(document.getElementById("passwordid").value != ""){
+  var pass1=document.getElementById("passwordid");
+  var pass2=document.getElementById('repasswordid');
+  if(pass1.value != pass2.value){
+
+    document.getElementById('error3name').innerHTML="Passwoed does not match"; 
+    document.getElementById('repasswordid').focus(); 
+  }
+  else{
+    console.log("password check")
+    document.getElementById("myForm").submit();
+  }
+}
+}
+</script>
+</head>
+<body>
+    <section class="vh-100" style="background-color: #9A616D;">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+              <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card-body p-5">
+                <form id="myForm" action="Register" method="post" onsubmit="return false;" enctype="multipart/form-data">
+                  <div class="avatar">
+                    <img style="height: 100px;" id="ProfileImage" src="{% static 'kindpng_786678.png' %}" onclick="Imageupload()">
+                    <div class="text">
+                        <p id="Upload" onclick="Imageupload()" >Upload Profile</p>
+                    </div>
+                  </div>
+                  <h3 style="text-align: center;"  class="mb-5">Register</h3>
+                    {% csrf_token %}
+                  <div class="form-outline mb-2">
+                    <input   type="text" id="nameid" name="FirstName" placeholder="First Name" class="form-control form-control-lg" required/>
+                </div>
+
+                <div class="form-outline mb-2">
+                    <input   type="text" id="nameid" name="LastName" placeholder="Last Name" class="form-control form-control-lg" required/>
+                </div>
+                  <div class="form-outline mb-2">
+                    <input type="email" id="emailid" name="Email" placeholder="Email" class="form-control form-control-lg" onblur="myFunction()" required/>
+                    <span style="color:#D8000C" class="error1" id="error1name"></span>
+                  </div>
+                  
+
+                 
+                  <div class="form-outline mb-2">
+                    <input type="password" id="passwordid" name="Password" placeholder="Password" class="form-control form-control-lg" required/>
+                  </div>
+
+                  <div class="form-outline mb-2">
+                    <input type="password" id="repasswordid" name="Repassword" placeholder="Re-Enter Password" class="form-control form-control-lg" required/>
+                    <span style="color:#D8000C" class="error3" id="error3name"></span>
+                  </div>
+                <div class="text-center">
+                  <button class="btn btn-primary btn-lg btn-block" onclick="password()" type="submit">Register</button>
+                </div>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+</body>
+</html>

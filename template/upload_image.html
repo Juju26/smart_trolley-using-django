@@ -1,0 +1,70 @@
+{%load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{% static '/css/styles.css' %}" rel="stylesheet" />
+   
+    </head>
+    <body>
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header"><h3 class="text-center font-weight-light my-4">Upload image</h3></div>
+                                <div class="card-body">
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="shop_name" name="shop_name" type="text" placeholder="ZeeZee Super market" />
+                                            <label for="shop_name">Enter Shop name</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="floor" name="floor" type="text" placeholder="0" />
+                                            <label for="floor">Enter Floor</label>
+                                        </div>
+
+                                        <div style="text-align: right; background-color: #0D6DFE; color: aliceblue;">
+                                            <input  type="file"  accept="image/*" name="shop_image" id="file"  onchange="loadFile(event)" style="display: none;">
+                                            <label for="file" style="cursor: pointer;"> &nbsp; &nbsp; &nbsp; Click to Select Image</label>
+                                            <img id="output" width="200" />
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                            <a class="small"></a>
+                                            <a class="btn btn-primary" onclick="success()" href="{% url 'upload_image' %}">Upload</a>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+
+
+
+
+
+
+        
+
+    </body>
+<script>
+    var loadFile = function(event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+    function success(){
+        alert("Successfully Uploaded");
+    }
+    </script>
+</html>
