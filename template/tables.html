@@ -79,6 +79,10 @@
 }
 </style>
 <body style="background-color: #F4F7FD;">
+  <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- Navbar Brand-->
+    <a class="navbar-brand ps-3" href="{% url 'home' %}">Smart Trolley Admin</a>
+ </nav>
   <main>
       <div class="container mt-4">
           <div class="card mb-4">
@@ -113,10 +117,18 @@
                         </tr>
                       </thead>
                       <tbody>
-                        
+                        {% for i in result %}
+                        <tr>
 
+                          <td>{{ i.0 }}</td>
+                          <td>{{i.1}}</td>
+                          <td>{{i.2}}</td>
+                          <td>{{i.3}}</td>
+                          
+                        </tr>
+                        {% endfor %}
 
-                        {% for i,j in product_id %}
+                        <!-- {% for i,j in product_id %}
                         <tr>
                           <th scope="row">{{i}}</i> </th>
                           <th scope="row">{{j}} <i class="fa fa-pencil" aria-hidden="true" onclick="updateuser('{{j}}');"></i></th>
@@ -149,7 +161,7 @@
                               <button class="btn btn-primary" onclick="submitforms('{{j}}');" type="submit">Sort</button>
                             </th>
                         </tr>
-                        {% endfor %}
+                        {% endfor %} -->
                       </tbody>
                     </table>
                   </div>

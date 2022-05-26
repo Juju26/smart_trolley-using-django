@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import json
 from .models import *
+import os
 # Create your views here.
 
 def admin(request):
@@ -73,64 +74,75 @@ def add_product(request):
         mydb.commit()
         print("Item added")
         name="Added successfully"
-        return render(request,'404.html')
+        return render(request,'add_product.html')
     return render(request,'add_product.html')
 
 
 def set_location_product(request):
-    # if request.method=='POST':
-    #         mydb=mc.connect(host="localhost",user="bot1",passwd="12345")
-    #         mycursor=mydb.cursor()
-    #         mycursor.execute("use smart_trolley_django")
-    #         mycursor.execute("create table if not exists coordinates_table(location varchar(10))")
-    #         mydb.commit()
+    if request.method=='POST':
+            mydb=mc.connect(host="localhost",user="bot1",passwd="12345")
+            mycursor=mydb.cursor()
+            mycursor.execute("use smart_trolley_django")
+            mycursor.execute("create table if not exists coordinates_table(location varchar(10))")
+            mydb.commit()
 
-    #         location_list=[request.POST['column'],request.POST['row'],request.POST['rack']]
-    #         location="-".join(i for i in location_list)
-    #         print(location)
-    #         # mycursor.execute("update coordinates_table set location='%s' where location='%s';))
-    #         def onclick(event): 
+            print("req obj",request.POST['column'])
+            location_list=[request.POST['column'],request.POST['row'],request.POST['rack']]
+            location="-".join(i for i in location_list)
+            print("location",location)
+            # mycursor.execute("update coordinates_table set location='%s' where location='%s';))
+            def onclick(event): 
                 
-    #             #print("location=%s, xdata=%f, ydata=%f" % (location_list[counter], event.xdata, event.ydata))
-    #             print(" [%f, %f] " % ( event.xdata, event.ydata))
+                #print("location=%s, xdata=%f, ydata=%f" % (location_list[counter], event.xdata, event.ydata))
+                print(" [%f, %f] " % ( event.xdata, event.ydata))
                 
-    #             mycursor.execute("update coordinates_table set x_cord='%f' where location='%s';"%(event.xdata,location))
-    #             mycursor.execute("update coordinates_table set y_cord='%f' where location='%s';"%(event.ydata,location))
+                mycursor.execute('''update coordinates_table set x_cord='%s',y_cord='%s' where location='%s';'''%(event.xdata,event.ydata,location))
                 
-    #             mydb.commit()
+                
+                mydb.commit()
                 
 
-    #         def onrelease(event):
-    #             pass
-    #         img = mpimg.imread('../smart_trolley_django/static/imgs/floor_1.png')
-    #         plt.figure(figsize = (12,12))
-    #         ax = plt.imshow(img)
-    #         fig = ax.get_figure()
-    #         cid = fig.canvas.mpl_connect('button_press_event', onclick) 
-    #         cid = fig.canvas.mpl_connect('button_press_event', onrelease)
-    #         plt.show()
-            return render(request,'product_location_setter.html')
-    # return render(request,'product_location_setter.html')
+            def onrelease(event):
+                pass
+            img = mpimg.imread('../smart_trolley_django/static/imgs/floor_1.png')
+            plt.figure(figsize = (12,12))
+            ax = plt.imshow(img)
+            fig = ax.get_figure()
+            cid = fig.canvas.mpl_connect('button_press_event', onclick) 
+            cid = fig.canvas.mpl_connect('button_press_event', onrelease)
+            plt.show()
+            
+    return render(request,'product_location_setter.html')
 
 
 def tables(request):
-    return render(request,'tables.html')
+    mydb=mc.connect(host="localhost",user="bot1",passwd="12345")
+    mycursor=mydb.cursor()
+    mycursor.execute("use smart_trolley_django")
+    mycursor.execute("select * from product_details")
 
-def upload_image(request):
+    myresult=mycursor.fetchall()
+    # prod_name,prod_id,location,category=myresult[0]
+    # print(prod_name,prod_id,location,category)
+
+
+    return render(request,'tables.html',{'result':myresult})
+
+# def upload_image(request):
     
-        # mydb=mc.connect(host="localhost",user="bot1",passwd="12345")
-        # mycursor=mydb.cursor()
-        # mycursor.execute("use smart_trolley_django")
-        # mycursor.execute("create table if not exists product_image(prod_id varchar(10),image varchar(100))")
-        # mydb.commit()
-        # mycursor.execute("insert into product_image values('%s','%s');"%(request.POST['product_id'],request.POST['image']))
-        # mydb.commit()
-        # print("Image uploaded")
-        # name="Uploaded successfully"
-        # return render(request,'404.html')
-        if request.method=='POST':
-            print(request.POST['shop_name'])        
-        return render(request,'upload_image.html')
+#         # mydb=mc.connect(host="localhost",user="bot1",passwd="12345")
+#         # mycursor=mydb.cursor()
+#         # mycursor.execute("use smart_trolley_django")
+#         # mycursor.execute("create table if not exists product_image(prod_id varchar(10),image varchar(100))")
+#         # mydb.commit()
+#         # mycursor.execute("insert into product_image values('%s','%s');"%(request.POST['product_id'],request.POST['image']))
+#         # mydb.commit()
+#         # print("Image uploaded")
+#         # name="Uploaded successfully"
+#         # return render(request,'404.html')
+#         if request.method=='POST':
+#             print(request.POST['shop_name'])        
+#         return render(request,'upload_image.html')
 
 
 # def login(request):
@@ -139,8 +151,57 @@ def upload_image(request):
 # def register(request):
 #     return render(request,'register.html')
 
+def upload_image(request):
+    
+
+    UPLOAD_FOLDER = './uploads'
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
+    
+
+    def allowed_file(filename):
+        return '.' in filename and \
+            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+    
+
+    if request.method == 'POST':
+        # def upload_file():
+        #     if request.method == 'POST':
+        #         # check if the post request has the file part
+        #         if 'file' not in request.files:
+        #             flash('No file part')
+        #             return redirect(request.url)
+        #         file = request.files['file']
+        #         # if user does not select file, browser also
+        #         # submit an empty part without filename
+        #         if file.filename == '':
+        #             flash('No selected file')
+        #             return redirect(request.url)
+        #         #if file and allowed_file(file.filename):
+        #         if file:
+        #             filename = secure_filename(file.filename)
+        #             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        #             return redirect(url_for('uploaded_file',
+        #                                     filename=filename))
+        file=request.FILES['file']
+        img_save_location= "E:/projects/smart trolley django/smart_trolley_django/static/imgs/layouts.png"
+        with open(img_save_location,'wb') as fi:
+            for chunk in file.chunks():
+                fi.write(chunk)
+       
+    #     file.save(os.path.join('../smart trolley django/smart_trolley_django/static/imgs',file.filename))
+        return render(request,'404.html')
+    return render(request,'upload_image.html')
+    
+    
+def view_layout(request):
+    return render(request,'view_layout.html')
+
 def settings(request):
     return render(request,'settings.html')
 
 def error_404(request):
     return render(request,'404.html')
+
+

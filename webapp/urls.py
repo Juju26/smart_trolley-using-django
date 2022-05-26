@@ -11,6 +11,7 @@ urlpatterns = [
     path('add_product',views.add_product,name='add_product'),
     path('set_location_product',views.set_location_product,name='set_location_product'),
     path('upload_image',views.upload_image,name='upload_image'),
+    path('view_layout',views.view_layout,name='view_layout'),
     path('tables',views.tables,name='tables'),
     # path('login',views.login,name='login'),
     # path('register',views.register,name='register'),
