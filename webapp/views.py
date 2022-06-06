@@ -26,7 +26,7 @@ def login(request):
                     return redirect('home')
             else:
                 request.session['User']=emailid
-                return redirect('Home')
+                return redirect('CustomerHome')
         if User.objects.filter(Email=Email).exists():
             UserObject= User.objects.get(Email=Email)
             if(UserObject.Password != Password and len(Password)>0):
@@ -60,6 +60,15 @@ def register(request):
 def home(request):   
     return render(request,'index.html')
 
+def cart(request):
+    if request.method=='POST':
+        return render(request,'cart.html')  
+    return render(request,'cart.html')
+def CustomerHome(requst):
+    # if requst.method=='POST':
+    #     return render(request,'CustomerHome.html')
+    return render(requst,'CustomerHome.html')
+
 def add_product(request):
     if request.method == 'POST':
         mydb=mc.connect(host="localhost",user="bot1",passwd="12345")
@@ -67,9 +76,6 @@ def add_product(request):
         mycursor.execute("use smart_trolley_django")
         mycursor.execute("create table if not exists product_details(prod_name varchar(50),prod_id varchar(10),location varchar(8),category varchar(20))")
         mydb.commit()
-        '''
-        add_items method takes 4 parameters(product_name,product_id,product_location,product_category)
-        '''
         mycursor.execute("insert into product_details values('%s','%s','%s','%s');"%(request.POST['product_name'],request.POST['product_id'],request.POST['product_location'],request.POST['product_category']))
         mydb.commit()
         print("Item added")

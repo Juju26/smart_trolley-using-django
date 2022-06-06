@@ -1,0 +1,422 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="signin.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
+    <link rel="icon" href="assets\imgs\logo-light.png">
+
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        .card-img-top {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .card:hover {
+            background-color: #eee;
+            transform: scale(1.03);
+        }
+    </style>
+    <script>
+        // function change(sign,input){
+        //     if (sign=='-' && document.getElementById(input.value).value>0) document.getElementById(input.value).value--;
+        //     else if (sign=='+') document.getElementById(input.value).value++;
+        // }
+        const items=[]
+        function change(sign,input){
+            if (sign=='-' && document.getElementById(input.value).value>0) document.getElementsByName(input.value).forEach(subract);
+            else if (sign=='+') 
+            document.getElementsByName(input.value).forEach(add)
+            items.push(input.value)
+            console.log(items)
+            sessionStorage.setItem('items',JSON.stringify(items))
+            
+        }
+        function add(element){
+            element.value++;
+        }
+
+        function subract(element){
+            element.value--;
+        }
+    </script>
+</head>
+<body class="container-fluid">
+<form action="{% url 'cart' %}" method="post">
+   {% csrf_token %}
+
+<!--  Navbar  -->
+<div class="container-fluid text-center mb-2">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <div class="col-4 d-flex mb-1 mb-md-0 text-dark text-decoration-none align-items-center">
+            <h5 class="mr-3" id="username">{{ email }}</h5>
+        </div>
+        <div class="col-4 d-flex mb-1 mb-md-0 text-dark text-decoration-none justify-content-center align-items-center">
+            <a href="/" style="text-decoration: none;">
+            <img src="{% static '/imgs/cart.png' %}" class="img-fluid rounded" alt="logo" width="30px" height="30px"></a>
+            <h3 class="text-success align-self-center">Smart Trolley </h3>
+        </div>
+        <div class="col-4 d-flex flex-row justify-content-end mb-1 mb-md-0 text-dark text-decoration-none">
+            <button type="submit" class="btn btn-outline-success btn-sm mr-3"><i class="bi bi-cart-fill mr-2"></i>Go to cart</button>
+            <a  href="/myorders" class="btn btn-outline-dark btn-sm mr-3"><i class="bi bi-receipt mr-2"></i>My orders</button>
+            <a href="/logout" class="btn btn-outline-danger btn-sm"><i class="bi bi-box-arrow-right mr-2"></i>Logout</a>
+        </div>
+    </header>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <!--            Navbar    -->
+
+        <div class="col-sm-2">
+            
+
+            <nav id="navbar-example3" class="navbar navbar-light bg-light flex-column justify-content-start">
+                <a class="navbar-brand text-success" href="#">Home</a>
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link text-dark" href="#topSelling">Top Selling</a>
+                    <a class="nav-link text-dark" href="#topDeals">Deals of the day</a>
+                    <a class="nav-link text-dark" href='#Furniture'></a>
+
+                </nav>
+            </nav>
+        </div>
+
+
+        <div class="col-sm-10">
+        <div class="row ">
+
+            <h3 id='topSelling' class='text-success'>Top Selling</h3>
+
+            <div class="col-lg-3 d-flex my-2"> 
+                <div class="card"> 
+                    <img class="card-img-top shadow-sm" src="https://th.bing.com/th/id/OIP.IUIXB6XQfcF1NOO08GT85gHaIV?w=147&h=180&c=7&r=0&o=5&dpr=1.25&pid=1.7" class="card-img-top" alt="...">
+                    <div class="card-body"> 
+                        <h5 class="card-title" id="diary milk">Diary Milk</h5> 
+                        <h6 class="card-text text-success">Choclates</h6> 
+                        <h5 class="card-title">
+                            
+                            &#8377;80
+                        </h5> 
+                        <p>
+                            0%
+                        </p> 
+                        <div class="input-group mb-2"> 
+                            <button type='button' onclick="change('-',this)" value='diary milk' class="input-group-text btn btn-outline-success">-</button> 
+                            <input type="none" class="form-control col-2 text-center" id='diary milk' name='Surf Excel' value="0"> 
+                            <button type='button' onclick="change('+',this)" value='diary milk' class="input-group-text btn btn-outline-success">+</button> 
+                        </div>
+                    </div>
+                </div> 
+
+               
+            </div>
+
+
+            <div class="col-lg-3 d-flex my-2"> 
+                <div class="card"> 
+                    <img class="card-img-top shadow-sm" src="https://th.bing.com/th/id/OIP.Un_vKLmVniJC_NLrxQ26fQAAAA?w=179&h=180&c=7&r=0&o=5&dpr=1.25&pid=1.7" class="card-img-top" alt="...">
+                    <div class="card-body"> 
+                        <h5 class="card-title" id="ponds">Ponds </h5> 
+                        <h6 class="card-text text-success">Category</h6> 
+                        <h5 class="card-title">
+                            <s class="text-muted">
+                            (&#8377;50)
+                            </s>
+                            &#8377;40
+                        </h5> 
+                        <p>
+                            20%
+                        </p> 
+                        <div class="input-group mb-2"> 
+                            <button type='button' onclick="change('-',this)" value='ponds' class="input-group-text btn btn-outline-success">-</button> 
+                            <input type="none" class="form-control col-2 text-center" id='ponds' name='ponds' value="0"> 
+                            <button type='button' onclick="change('+',this)" value='ponds' class="input-group-text btn btn-outline-success">+</button> 
+                        </div>
+                    </div>
+                </div> 
+
+               
+            </div>
+
+
+            <div class="col-lg-3 d-flex my-2"> 
+                <div class="card"> 
+                    <img class="card-img-top shadow-sm" src="https://th.bing.com/th/id/OIP.pFUqUTtTpLkM-amGb9dCngAAAA?w=200&h=148&c=7&r=0&o=5&dpr=1.25&pid=1.7" class="card-img-top" alt="...">
+                    <div class="card-body"> 
+                        <h5 class="card-title" id="mysore sandal soap">Mysore sandal soap</h5> 
+                        <h6 class="card-text text-success">Category</h6> 
+                        <h5 class="card-title">
+                            <s class="text-muted">
+                            (&#8377;35)
+                            </s>
+                            &#8377;31
+                        </h5> 
+                        <p>
+                            10%
+                        </p> 
+                        <div class="input-group mb-2"> 
+                            <button type='button' onclick="change('-',this)" value='mysore sandal soap' class="input-group-text btn btn-outline-success">-</button> 
+                            <input type="none" class="form-control col-2 text-center" id='mysore sandal soap' name='mysore sandal soap' value="0"> 
+                            <button type='button' onclick="change('+',this)" value='mysore sandal soap' class="input-group-text btn btn-outline-success">+</button> 
+                        </div>
+                    </div>
+                </div> 
+
+               
+            </div>
+
+
+
+            <div class="col-lg-3 d-flex my-2"> 
+                <div class="card"> 
+                    <img class="card-img-top shadow-sm" src="https://th.bing.com/th/id/OIP.p5g9KpLUt7LUkLWl7qwJ8gHaHa?w=203&h=203&c=7&r=0&o=5&dpr=1.25&pid=1.7" class="card-img-top" alt="...">
+                    <div class="card-body"> 
+                        <h5 class="card-title" id="Taj mahal tea">Taj mahal tea</h5> 
+                        <h6 class="card-text text-success">Category</h6> 
+                        <h5 class="card-title">
+                            <s class="text-muted">
+                            (&#8377;65)
+                            </s>
+                            &#8377;61
+                        </h5> 
+                        <p>
+                            10%
+                        </p> 
+                        <div class="input-group mb-2"> 
+                            <button type='button' onclick="change('-',this)" value='Taj mahal tea' class="input-group-text btn btn-outline-success">-</button> 
+                            <input type="none" class="form-control col-2 text-center" id='Taj mahal tea' name='Taj mahal tea' value="0"> 
+                            <button type='button' onclick="change('+',this)" value='Taj mahal tea' class="input-group-text btn btn-outline-success">+</button> 
+                        </div>
+                    </div>
+                </div> 
+
+               
+            </div>
+
+
+            <div class="col-lg-3 d-flex my-2"> 
+                <div class="card"> 
+                    <img class="card-img-top shadow-sm" src="https://th.bing.com/th/id/OIP.WF3JnjXf3C6mb8w6TIgw0AHaHa?w=203&h=203&c=7&r=0&o=5&dpr=1.25&pid=1.7" class="card-img-top" alt="...">
+                    <div class="card-body"> 
+                        <h5 class="card-title" id="surf excel">Surf Excel</h5> 
+                        <h6 class="card-text text-success">Category</h6> 
+                        <h5 class="card-title">
+                            <s class="text-muted">
+                            (&#8377;35)
+                            </s>
+                            &#8377;31
+                        </h5> 
+                        <p>
+                            10%
+                        </p> 
+                        <div class="input-group mb-2"> 
+                            <button type='button' onclick="change('-',this)" value='Surf Excel' class="input-group-text btn btn-outline-success">-</button> 
+                            <input type="none" class="form-control col-2 text-center" id='Surf Excel' name='Surf Excel' value="0"> 
+                            <button type='button' onclick="change('+',this)" value='Surf Excel' class="input-group-text btn btn-outline-success">+</button> 
+                        </div>
+                    </div>
+                </div> 
+
+               
+            </div>
+
+            <div class="col-lg-3 d-flex my-2"> 
+                <div class="card"> 
+                    <img class="card-img-top shadow-sm" src=" https://jeyamsupermarket.com/images/thumbs/0003980_cadbury-5-star-chocolate-bar-25-g_550.png" class="card-img-top" alt="...">
+                    <div class="card-body"> 
+                        <h5 class="card-title" id="5 star">5 Star</h5> 
+                        <h6 class="card-text text-success">Category</h6> 
+                        <h5 class="card-title">
+                            <s class="text-muted">
+                            (&#8377; 10)
+                            </s>
+                            &#8377;8
+                        </h5> 
+                        <p>
+                            2%
+                        </p> 
+                        <div class="input-group mb-2"> 
+                            <button type='button' onclick="change('-',this)" value='5 star' class="input-group-text btn btn-outline-success">-</button> 
+                            <input type="none" class="form-control col-2 text-center" id='5 star' name='set prod id 1' value="0"> 
+                            <button type='button' onclick="change('+',this)" value='5 star' class="input-group-text btn btn-outline-success">+</button> 
+                        </div>
+                    </div>
+                </div> 
+
+                
+            </div>
+            <div class="col-lg-3 d-flex my-2"> 
+                <div class="card"> 
+                    <img class="card-img-top shadow-sm" src="https://th.bing.com/th/id/OIP.M_cfBbgA9kuoBEwcrJtgXgAAAA?w=140&h=150&c=7&r=0&o=5&dpr=1.25&pid=1.7" width="40px" class="card-img-top" alt="...">
+                    <div class="card-body"> 
+                        <h5 class="card-title" id="50 50">50 50 </h5> 
+                        <h6 class="card-text text-success">Category</h6> 
+                        <h5 class="card-title">
+                            <s class="text-muted">
+                            (&#8377; 50)
+                            </s>
+                            &#8377;40
+                        </h5> 
+                        <p>
+                            2%
+                        </p> 
+                        <div class="input-group mb-2"> 
+                            <button type='button' onclick="change('-',this)" value='50 50' class="input-group-text btn btn-outline-success">-</button> 
+                            <input type="none" class="form-control col-2 text-center" id='50 50' name='set prod id 2' value="0"> 
+                            <button type='button' onclick="change('+',this)" value='50 50' class="input-group-text btn btn-outline-success">+</button> 
+                        </div>
+                    </div>
+                </div> 
+
+                
+            </div>
+
+            <div class="col-lg-3 d-flex my-2"> 
+                <div class="card"> 
+                    <img class="card-img-top shadow-sm" src="https://th.bing.com/th/id/OIP.b9MAzZ_adE2Rr9jfha2p6gAAAA?w=189&h=180&c=7&r=0&o=5&dpr=1.25&pid=1.7" class="card-img-top" alt="...">
+                    <div class="card-body"> 
+                        <h5 class="card-title" id="Gillete">Gillete</h5> 
+                        <h6 class="card-text text-success">Category</h6> 
+                        <h5 class="card-title">
+                            <s class="text-muted">
+                            (&#8377;110)
+                            </s>
+                            &#8377;100
+                        </h5> 
+                        <p>
+                            10%
+                        </p> 
+                        <div class="input-group mb-2"> 
+                            <button type='button' onclick="change('-',this)" value='Gillete' class="input-group-text btn btn-outline-success">-</button> 
+                            <input type="none" class="form-control col-2 text-center" id='Gillete' name='set prod id 3' value="0"> 
+                            <button type='button' onclick="change('+',this)" value='Gillete' class="input-group-text btn btn-outline-success">+</button> 
+                        </div>
+                    </div>
+                </div> 
+
+               
+            </div>
+            <div class="col-lg-3 d-flex my-2"> 
+                <div class="card"> 
+                    <img class="card-img-top shadow-sm" src="https://th.bing.com/th/id/OIP.ibKzuQ_nkCyaKtiB2NVZpQHaHa?w=172&h=180&c=7&r=0&o=5&dpr=1.25&pid=1.7" class="card-img-top" alt="...">
+                    <div class="card-body"> 
+                        <h5 class="card-title" id="3 Roses">3 Roses</h5> 
+                        <h6 class="card-text text-success">Category</h6> 
+                        <h5 class="card-title">
+                            
+                            &#8377;65
+                        </h5> 
+                        <p>
+                            0%
+                        </p> 
+                        <div class="input-group mb-2"> 
+                            <button type='button' onclick="change('-',this)" value='3 Roses' class="input-group-text btn btn-outline-success">-</button> 
+                            <input type="none" class="form-control col-2 text-center" id='3 Roses' name='3 Roses' value="0"> 
+                            <button type='button' onclick="change('+',this)" value='3 Roses' class="input-group-text btn btn-outline-success">+</button> 
+                        </div>
+                    </div>
+                </div>        
+            </div>
+            <div class="col-lg-3 d-flex my-2"> 
+                <div class="card"> 
+                    <img class="card-img-top shadow-sm" src="https://th.bing.com/th/id/OIP.WF3JnjXf3C6mb8w6TIgw0AHaHa?w=203&h=203&c=7&r=0&o=5&dpr=1.25&pid=1.7" class="card-img-top" alt="...">
+                    <div class="card-body"> 
+                        <h5 class="card-title" id="surf excel">Surf Excel</h5> 
+                        <h6 class="card-text text-success">Category</h6> 
+                        <h5 class="card-title">
+                            <s class="text-muted">
+                            (&#8377;35)
+                            </s>
+                            &#8377;31
+                        </h5> 
+                        <p>
+                            10%
+                        </p> 
+                        <div class="input-group mb-2"> 
+                            <button type='button' onclick="change('-',this)" value='Surf Excel' class="input-group-text btn btn-outline-success">-</button> 
+                            <input type="none" class="form-control col-2 text-center" id='Surf Excel' name='Surf Excel' value="0"> 
+                            <button type='button' onclick="change('+',this)" value='Surf Excel' class="input-group-text btn btn-outline-success">+</button> 
+                        </div>
+                    </div>
+                </div> 
+
+               
+            </div>
+
+
+            <div class="col-lg-3 d-flex my-2"> 
+                <div class="card"> 
+                    <img class="card-img-top shadow-sm" src="https://th.bing.com/th/id/OIP.rLJGiJ8fqCIcYtRa-KyD8wHaHf?w=197&h=199&c=7&r=0&o=5&dpr=1.25&pid=1.7" class="card-img-top" alt="...">
+                    <div class="card-body"> 
+                        <h5 class="card-title" id="sakthi masala">Sakthi masala</h5> 
+                        <h6 class="card-text text-success">Category</h6> 
+                        <h5 class="card-title">
+                            <s class="text-muted">
+                            (&#8377;35)
+                            </s>
+                            &#8377;32
+                        </h5> 
+                        <p>
+                            8%
+                        </p> 
+                        <div class="input-group mb-2"> 
+                            <button type='button' onclick="change('-',this)" value='Sakthi masala' class="input-group-text btn btn-outline-success">-</button> 
+                            <input type="none" class="form-control col-2 text-center" id='Sakthi masala' name='Sakthi masala' value="0"> 
+                            <button type='button' onclick="change('+',this)" value='Sakthi masala' class="input-group-text btn btn-outline-success">+</button> 
+                        </div>
+                    </div>
+                </div> 
+
+               
+            </div>
+
+            <div class="col-lg-3 d-flex my-2"> 
+                <div class="card"> 
+                    <img class="card-img-top shadow-sm" src="https://th.bing.com/th/id/OIP.rLJGiJ8fqCIcYtRa-KyD8wHaHf?w=197&h=199&c=7&r=0&o=5&dpr=1.25&pid=1.7" class="card-img-top" alt="...">
+                    <div class="card-body"> 
+                        <h5 class="card-title">Sakthi masala</h5> 
+                        <h6 class="card-text text-success">Category</h6> 
+                        <h5 class="card-title">
+                            <s class="text-muted">
+                            (&#8377;35)
+                            </s>
+                            &#8377;32
+                        </h5> 
+                        <p>
+                            8%
+                        </p> 
+                        <div class="input-group mb-2"> 
+                            <button type='button' onclick="change('-',this)" value='Sakthi masala' class="input-group-text btn btn-outline-success">-</button> 
+                            <input type="none" class="form-control col-2 text-center" id='Sakthi masala' name='Sakthi masala' value="0"> 
+                            <button type='button' onclick="change('+',this)" value='Sakthi masala' class="input-group-text btn btn-outline-success">+</button> 
+                        </div>
+                    </div>
+                </div> 
+
+               
+            </div>
+
+
+            
+
+        
+        </div></div>
+
+
+    </div></div></form>
+
+</body>
+</html>

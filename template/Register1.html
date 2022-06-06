@@ -98,12 +98,7 @@ function password(){
               <div class="card shadow-2-strong" style="border-radius: 1rem;">
                 <div class="card-body p-5">
                 <form id="myForm" action="Register" method="post" onsubmit="return false;" enctype="multipart/form-data">
-                  <div class="avatar">
-                    <img style="height: 100px;" id="ProfileImage" src="{% static 'kindpng_786678.png' %}" onclick="Imageupload()">
-                    <div class="text">
-                        <p id="Upload" onclick="Imageupload()" >Upload Profile</p>
-                    </div>
-                  </div>
+                  
                   <h3 style="text-align: center;"  class="mb-5">Register</h3>
                     {% csrf_token %}
                   <div class="form-outline mb-2">
