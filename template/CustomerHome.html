@@ -70,9 +70,9 @@
             <h3 class="text-success align-self-center">Smart Trolley </h3>
         </div>
         <div class="col-4 d-flex flex-row justify-content-end mb-1 mb-md-0 text-dark text-decoration-none">
-            <button type="submit" class="btn btn-outline-success btn-sm mr-3"><i class="bi bi-cart-fill mr-2"></i>Go to cart</button>
-            <a  href="/myorders" class="btn btn-outline-dark btn-sm mr-3"><i class="bi bi-receipt mr-2"></i>My orders</button>
-            <a href="/logout" class="btn btn-outline-danger btn-sm"><i class="bi bi-box-arrow-right mr-2"></i>Logout</a>
+            <!-- <button type="submit" class="btn btn-outline-success btn-sm mr-3"><i class="bi bi-cart-fill mr-2"></i>Go to cart</button> -->
+            <a href="{% url 'view_mapped_layout' %}" class="btn btn-outline-success" btn-sm"><i class="bi bi-cart-fill mr-2"></i>Go to cart</a> &nbsp; &nbsp;
+            <a href="{% url 'Login' %}" class="btn btn-outline-danger btn-sm"><i class="bi bi-box-arrow-right mr-2"></i>Logout</a>
         </div>
     </header>
 </div>
@@ -100,29 +100,7 @@
 
             <h3 id='topSelling' class='text-success'>Top Selling</h3>
 
-            <div class="col-lg-3 d-flex my-2"> 
-                <div class="card"> 
-                    <img class="card-img-top shadow-sm" src="https://th.bing.com/th/id/OIP.IUIXB6XQfcF1NOO08GT85gHaIV?w=147&h=180&c=7&r=0&o=5&dpr=1.25&pid=1.7" class="card-img-top" alt="...">
-                    <div class="card-body"> 
-                        <h5 class="card-title" id="diary milk">Diary Milk</h5> 
-                        <h6 class="card-text text-success">Choclates</h6> 
-                        <h5 class="card-title">
-                            
-                            &#8377;80
-                        </h5> 
-                        <p>
-                            0%
-                        </p> 
-                        <div class="input-group mb-2"> 
-                            <button type='button' onclick="change('-',this)" value='diary milk' class="input-group-text btn btn-outline-success">-</button> 
-                            <input type="none" class="form-control col-2 text-center" id='diary milk' name='Surf Excel' value="0"> 
-                            <button type='button' onclick="change('+',this)" value='diary milk' class="input-group-text btn btn-outline-success">+</button> 
-                        </div>
-                    </div>
-                </div> 
-
-               
-            </div>
+            
 
 
             <div class="col-lg-3 d-flex my-2"> 
@@ -233,7 +211,7 @@
                
             </div>
 
-            <div class="col-lg-3 d-flex my-2"> 
+            <!-- <div class="col-lg-3 d-flex my-2"> 
                 <div class="card"> 
                     <img class="card-img-top shadow-sm" src=" https://jeyamsupermarket.com/images/thumbs/0003980_cadbury-5-star-chocolate-bar-25-g_550.png" class="card-img-top" alt="...">
                     <div class="card-body"> 
@@ -257,8 +235,8 @@
                 </div> 
 
                 
-            </div>
-            <div class="col-lg-3 d-flex my-2"> 
+            </div> -->
+            <!-- <div class="col-lg-3 d-flex my-2"> 
                 <div class="card"> 
                     <img class="card-img-top shadow-sm" src="https://th.bing.com/th/id/OIP.M_cfBbgA9kuoBEwcrJtgXgAAAA?w=140&h=150&c=7&r=0&o=5&dpr=1.25&pid=1.7" width="40px" class="card-img-top" alt="...">
                     <div class="card-body"> 
@@ -282,7 +260,7 @@
                 </div> 
 
                 
-            </div>
+            </div> -->
 
             <div class="col-lg-3 d-flex my-2"> 
                 <div class="card"> 
@@ -332,15 +310,15 @@
             </div>
             <div class="col-lg-3 d-flex my-2"> 
                 <div class="card"> 
-                    <img class="card-img-top shadow-sm" src="https://th.bing.com/th/id/OIP.WF3JnjXf3C6mb8w6TIgw0AHaHa?w=203&h=203&c=7&r=0&o=5&dpr=1.25&pid=1.7" class="card-img-top" alt="...">
+                    <img class="card-img-top shadow-sm" src="https://jeyamsupermarket.com/images/thumbs/0003980_cadbury-5-star-chocolate-bar-25-g_550.png" class="card-img-top" alt="...">
                     <div class="card-body"> 
-                        <h5 class="card-title" id="surf excel">Surf Excel</h5> 
+                        <h5 class="card-title" id="surf excel">5 star</h5> 
                         <h6 class="card-text text-success">Category</h6> 
                         <h5 class="card-title">
                             <s class="text-muted">
-                            (&#8377;35)
+                            (&#8377;15)
                             </s>
-                            &#8377;31
+                            &#8377;11
                         </h5> 
                         <p>
                             10%
@@ -383,7 +361,7 @@
                
             </div>
 
-            <div class="col-lg-3 d-flex my-2"> 
+            <!-- <div class="col-lg-3 d-flex my-2"> 
                 <div class="card"> 
                     <img class="card-img-top shadow-sm" src="https://th.bing.com/th/id/OIP.rLJGiJ8fqCIcYtRa-KyD8wHaHf?w=197&h=199&c=7&r=0&o=5&dpr=1.25&pid=1.7" class="card-img-top" alt="...">
                     <div class="card-body"> 
@@ -407,7 +385,7 @@
                 </div> 
 
                
-            </div>
+            </div> -->
 
 
             

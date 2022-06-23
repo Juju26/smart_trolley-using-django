@@ -203,10 +203,13 @@ def upload_image(request):
     
 def view_layout(request):
     return render(request,'view_layout.html')
-
+def view_mapped_layout(request):
+    return render(request,'view_mapped_layout.html')
 def settings(request):
     return render(request,'settings.html')
-
+def loading(request):
+    
+    return render(request,'loading.html')
 def error_404(request):
     return render(request,'404.html')
 
